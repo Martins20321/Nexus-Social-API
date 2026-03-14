@@ -9,6 +9,8 @@ O **NexusSocial** é uma solução backend desenvolvida para resolver uma dor cr
 
 Muitas vezes, pequenas ONGs e centros comunitários possuem necessidades urgentes (como falta de um medicamento específico ou mantimentos para a semana) que não chegam ao conhecimento do público. Esta API permite que instituições cadastrem suas demandas em tempo real, permitindo que doadores encontrem onde sua ajuda terá o maior impacto imediato.
 
+> **Versão Atual:** `1.0.0` (Seguindo o padrão de Versionamento Semântico [SemVer](https://semver.org/lang/pt-BR/)).
+
 ### 🎯 Público-Alvo
 * **Instituições Sociais:** Gestores de ONGs e abrigos.
 * **Doadores:** Pessoas físicas ou empresas que buscam destinar recursos de forma assertiva.
@@ -47,4 +49,4 @@ Muitas vezes, pequenas ONGs e centros comunitários possuem necessidades urgente
 ### Instalação
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/SEU_USUARIO/nexus-social-api.git](https://github.com/SEU_USUARIO/nexus-social-api.git)
+   git clone https://github.com/Martins20321/Nexus-Social-API.git
