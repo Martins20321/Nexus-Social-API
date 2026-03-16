@@ -4,7 +4,7 @@
 Esta API foi desenvolvida para conectar doadores a instituições sociais, permitindo a gestão de necessidades em tempo real e o rastreamento de doações.
 
 ## 2. Arquitetura de Dados
-O sistema utiliza o mapeamento objeto-relacional (JPA/Hibernate) seguindo o diagrama de classes abaixo:
+O sistema utiliza o mapeamento objeto-relacional (ORM - Object Relational Mapping) (JPA/Hibernate) seguindo o diagrama de classes abaixo:
 
 ![Diagrama de Classes](./images/Class%20Diagram0.png)
 
