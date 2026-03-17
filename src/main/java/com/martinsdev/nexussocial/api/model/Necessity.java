@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_necessity")
@@ -36,4 +38,8 @@ public class Necessity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")
     private Institution institution;
+
+    @ToString.Exclude //Evitando loop infinito
+    @OneToMany(mappedBy = "necessity", cascade = CascadeType.ALL)
+    private List<Donation> donations = new ArrayList<>();
 }
