@@ -1,5 +1,7 @@
 package com.martinsdev.nexussocial.api.model;
 
+import com.martinsdev.nexussocial.api.dto.InsertInstitutionDTO;
+import com.martinsdev.nexussocial.api.dto.UpdateInstitutionDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +33,16 @@ public class Institution implements Serializable {
     @ToString.Exclude //Evitando loop infinito
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
     private List<Necessity> necessities = new ArrayList<>();
+
+    public Institution(InsertInstitutionDTO dto) {
+        this.name = dto.name();
+        this.cnpj = dto.cnpj();
+        this.phone = dto.phone();
+        this.email = dto.email();
+    }
+
+    public void updateData(UpdateInstitutionDTO dto){
+        this.name = dto.name();
+        this.phone = dto.phone();
+    }
 }
