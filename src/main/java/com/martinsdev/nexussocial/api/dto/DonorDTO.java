@@ -2,11 +2,12 @@ package com.martinsdev.nexussocial.api.dto;
 
 import com.martinsdev.nexussocial.api.model.Donor;
 
-public record DonorDTO(String name,
+public record DonorDTO(Long id,
+                       String name,
                        String phone,
                        String email) {
 
     public DonorDTO(Donor donor){
-        this(donor.getName(), donor.getPhone(), donor.getEmail());
+        this(donor.getId(), donor.getName(), donor.getPhone(), donor.getEmail());
     }
 }
