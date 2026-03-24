@@ -1,5 +1,7 @@
 package com.martinsdev.nexussocial.api.model;
 
+import com.martinsdev.nexussocial.api.dto.InsertDonationDTO;
+import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +31,14 @@ public class Donation implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donor_id")
     private Donor donor;
+
+    public Donation(InsertDonationDTO dto, Donor donor, Necessity necessity) {
+        this.donatedQuantity = dto.donatedQuantity();
+        this.donor = donor;
+        this.necessity = necessity;
+    }
+
+    public void updateData(UpdateDonationDTO dto) {
+        this.donatedQuantity = dto.donatedQuantity();
+    }
 }

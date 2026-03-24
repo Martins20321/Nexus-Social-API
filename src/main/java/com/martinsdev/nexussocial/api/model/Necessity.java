@@ -2,6 +2,7 @@ package com.martinsdev.nexussocial.api.model;
 
 import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
+import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;
 import jakarta.persistence.*;
@@ -59,5 +60,29 @@ public class Necessity implements Serializable {
         this.description = dto.description();
         this.requiredQuantity = dto.requiredQuantity();
         this.reachedQuantity = dto.reachedQuantity();
+    }
+
+    public void addDonation(Integer quantity){
+        if(quantity == 0){
+            throw new ValidationException("Donation quantity must be greater than zero");
+        }
+        this.reachedQuantity += quantity;
+
+        if(reachedQuantity >= requiredQuantity){
+            this.necessityStatus = NecessityStatus.FULFILLED;
+        }
+    }
+
+    public void removeDonation(Integer quantity){
+        if(this.reachedQuantity >= quantity){
+            this.reachedQuantity -= quantity;
+        }
+        else{
+            this.reachedQuantity = 0;
+        }
+
+        if(reachedQuantity <= requiredQuantity){
+            this.necessityStatus = NecessityStatus.OPEN;
+        }
     }
 }
