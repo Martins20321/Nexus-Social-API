@@ -22,7 +22,8 @@ public class InstitutionService {
     }
 
     public InstitutionDTO findById(Long id) {
-        return repository.findById(id).map(InstitutionDTO::new).orElseThrow(() -> new ValidationException("Institution Not Found"));
+        return repository.findById(id).map(InstitutionDTO::new)
+                .orElseThrow(() -> new ValidationException("Institution Not Found"));
     }
 
     public void insert(InsertInstitutionDTO dto) {

@@ -1,5 +1,7 @@
 package com.martinsdev.nexussocial.api.model;
 
+import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
+import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;
 import jakarta.persistence.*;
@@ -42,4 +44,20 @@ public class Necessity implements Serializable {
     @ToString.Exclude //Evitando loop infinito
     @OneToMany(mappedBy = "necessity", cascade = CascadeType.ALL)
     private List<Donation> donations = new ArrayList<>();
+
+    public Necessity(InsertNecessityDTO dto, Institution institution) {
+        this.title = dto.title();
+        this.description = dto.description();
+        this.requiredQuantity = dto.requiredQuantity();
+        this.urgencyLevel = dto.urgencyLevel();
+        this.necessityStatus = dto.necessityStatus();
+        this.institution = institution;
+    }
+
+    public void updateData(UpdateNecessityDTO dto){
+        this.title = dto.title();
+        this.description = dto.description();
+        this.requiredQuantity = dto.requiredQuantity();
+        this.reachedQuantity = dto.reachedQuantity();
+    }
 }
