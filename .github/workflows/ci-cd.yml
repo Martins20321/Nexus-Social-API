@@ -26,4 +26,4 @@ jobs:
 
       #Passo 3. Rodar o Maven para compilar o teste
       - name: Build and Test with maven
-        run: mvn -B clean package
+        run: mvn -B clean package -Dspring.profiles.active=test
