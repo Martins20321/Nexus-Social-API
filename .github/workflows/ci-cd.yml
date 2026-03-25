@@ -1,0 +1,29 @@
+Name: NexusSocial-API - CI/CD Pipeline
+
+#Quando este robô deve rodar
+on:
+  push:
+    branches: [ "main" ]
+    pull_request: [ "main" ]
+
+jobs:
+ #1º trabalho = fazer o build e testes
+  build-and-test:
+    runs-on: ubuntu-latest #Irá rodar em uma maquina linux
+
+    steps:
+      #Passo 1. Carregar o código para dentro do linux
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      #Passo 2. Instalar o JDK
+      - name: Set up JDK  
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven' #Agilizador de processos para bibliotece
+
+      #Passo 3. Rodar o Maven para compilar o teste
+      - name: Build and Test with maven
+        run: mvn -B clean package
