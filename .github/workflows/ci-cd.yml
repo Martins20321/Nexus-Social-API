@@ -1,4 +1,4 @@
-Name: NexusSocial-API - CI/CD Pipeline
+name: NexusSocial-API - CI/CD Pipeline
 
 #Quando este robô deve rodar
 on:
@@ -7,7 +7,7 @@ on:
     pull_request: [ "main" ]
 
 jobs:
- #1º trabalho = fazer o build e testes
+  #1º trabalho = fazer o build e testes
   build-and-test:
     runs-on: ubuntu-latest #Irá rodar em uma maquina linux
 
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       #Passo 2. Instalar o JDK
-      - name: Set up JDK  
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
