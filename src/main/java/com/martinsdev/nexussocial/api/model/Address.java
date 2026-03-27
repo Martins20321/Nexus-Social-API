@@ -33,10 +33,20 @@ public class Address implements Serializable {
     }
 
     public void updateData(UpdateAddressDTO dto) {
-        this.street = dto.street();
-        this.number = dto.number();
-        this.neighborhood = dto.neighborhood();
-        this.city = dto.city();
-        this.state = dto.state();
+        if (dto.street() != null) {
+            this.street = dto.street();
+        }
+        if (dto.number() != null) {
+            this.number = dto.number();
+        }
+        if (dto.neighborhood() != null) {
+            this.neighborhood = dto.neighborhood();
+        }
+        if (dto.city() != null) {
+            this.city = dto.city();
+        }
+        if (dto.state() != null) {
+            this.state = dto.state();
+        }
     }
 }
