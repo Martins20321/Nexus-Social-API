@@ -36,8 +36,14 @@ public class Donor implements Serializable {
     }
 
     public void updateData(UpdateDonorDTO dto) {
-        this.name = dto.name();
-        this.phone = dto.phone();
-        this.email = dto.email();
+        if (dto.name() != null) {
+            this.name = dto.name();
+        }
+        if (dto.phone() != null) {
+            this.phone = dto.phone();
+        }
+        if(dto.email() != null){
+            this.email = dto.email();
+        }
     }
 }

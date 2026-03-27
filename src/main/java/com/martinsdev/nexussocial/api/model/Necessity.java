@@ -56,10 +56,18 @@ public class Necessity implements Serializable {
     }
 
     public void updateData(UpdateNecessityDTO dto){
-        this.title = dto.title();
-        this.description = dto.description();
-        this.requiredQuantity = dto.requiredQuantity();
-        this.reachedQuantity = dto.reachedQuantity();
+        if (dto.title() != null){
+            this.title = dto.title();
+        }
+        if(dto.description() != null){
+            this.description = dto.description();
+        }
+        if(dto.requiredQuantity() != null){
+            this.requiredQuantity = dto.requiredQuantity();
+        }
+        if(dto.reachedQuantity() != null){
+            this.reachedQuantity = dto.reachedQuantity();
+        }
     }
 
     public void addDonation(Integer quantity){

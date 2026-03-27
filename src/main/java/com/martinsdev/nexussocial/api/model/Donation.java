@@ -39,6 +39,8 @@ public class Donation implements Serializable {
     }
 
     public void updateData(UpdateDonationDTO dto) {
-        this.donatedQuantity = dto.donatedQuantity();
+        if(dto.donatedQuantity() != null){
+            this.donatedQuantity = dto.donatedQuantity();
+        }
     }
 }

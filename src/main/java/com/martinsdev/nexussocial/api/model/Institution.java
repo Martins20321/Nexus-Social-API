@@ -42,7 +42,11 @@ public class Institution implements Serializable {
     }
 
     public void updateData(UpdateInstitutionDTO dto){
-        this.name = dto.name();
-        this.phone = dto.phone();
+        if(dto.name() != null){
+            this.name = dto.name();
+        }
+        if(dto.phone() != null){
+            this.phone = dto.phone();
+        }
     }
 }
