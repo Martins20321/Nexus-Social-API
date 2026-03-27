@@ -3,6 +3,7 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.InsertInstitutionDTO;
 import com.martinsdev.nexussocial.api.dto.InstitutionDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateInstitutionDTO;
+import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.model.Institution;
@@ -27,7 +28,7 @@ public class InstitutionService {
 
     public InstitutionDTO findById(Long id) {
         return repository.findById(id).map(InstitutionDTO::new)
-                .orElseThrow(() -> new ValidationException("Institution Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Transactional
@@ -38,7 +39,7 @@ public class InstitutionService {
             throw new ValidationException("This institution already exists");
         } else {
             Address address = addressRepository.findById(dto.addressId())
-                    .orElseThrow(() -> new ValidationException("This address not exists"));
+                    .orElseThrow(() -> new ResourceNotFoundException(dto.addressId()));
             Institution institution = new Institution(dto);
             institution.setAddress(address);
             institution = repository.save(institution);
@@ -49,7 +50,7 @@ public class InstitutionService {
     @Transactional
     public InstitutionDTO update(Long id, UpdateInstitutionDTO dto) {
         Institution institution = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Institution Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         institution.updateData(dto);
         repository.save(institution);
         return new InstitutionDTO(institution);
@@ -59,7 +60,7 @@ public class InstitutionService {
     public void delete(Long id) {
 
         Institution institution = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Institution Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(institution);
     }
 }
