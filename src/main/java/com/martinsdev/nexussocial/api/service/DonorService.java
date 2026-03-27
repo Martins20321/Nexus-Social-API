@@ -3,6 +3,7 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.DonorDTO;
 import com.martinsdev.nexussocial.api.dto.InsertDonorDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonorDTO;
+import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Donor;
 import com.martinsdev.nexussocial.api.repository.DonorRepository;
@@ -23,7 +24,7 @@ public class DonorService {
     }
 
     public DonorDTO findById(Long id) {
-        return repository.findById(id).map(DonorDTO::new).orElseThrow(() -> new ValidationException("Donor Not Found"));
+        return repository.findById(id).map(DonorDTO::new).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Transactional
@@ -40,7 +41,7 @@ public class DonorService {
     @Transactional
     public DonorDTO update(UpdateDonorDTO dto) {
         Donor donor = repository.findById(dto.id())
-                .orElseThrow(() -> new ValidationException("Donor Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(dto.id()));
         donor.updateData(dto);
         repository.save(donor);
         return new DonorDTO(donor);

@@ -3,6 +3,7 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.DonationDTO;
 import com.martinsdev.nexussocial.api.dto.InsertDonationDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
+import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Donation;
 import com.martinsdev.nexussocial.api.repository.DonationRepository;
@@ -27,13 +28,13 @@ public class DonationService {
     }
 
     public DonationDTO findById(Long id) {
-        return repository.findById(id).map(DonationDTO::new).orElseThrow(() -> new ValidationException("This Donation Not Found"));
+        return repository.findById(id).map(DonationDTO::new).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Transactional
     public void insert(InsertDonationDTO dto) {
-        var donor = donorRepository.findById(dto.idDonor()).orElseThrow(() -> new ValidationException("Donor not found with ID: " + dto.idDonor()));
-        var necessity = necessityRepository.findById(dto.idNecessity()).orElseThrow(() -> new ValidationException("Necessity not found with ID: " + dto.idNecessity()));
+        var donor = donorRepository.findById(dto.idDonor()).orElseThrow(() -> new ResourceNotFoundException(dto.idDonor()));
+        var necessity = necessityRepository.findById(dto.idNecessity()).orElseThrow(() -> new ResourceNotFoundException(dto.idNecessity()));
 
         necessity.addDonation(dto.donatedQuantity());
 
@@ -44,7 +45,7 @@ public class DonationService {
 
     @Transactional
     public DonationDTO update(UpdateDonationDTO dto) {
-        Donation donation = repository.findById(dto.id()).orElseThrow(() -> new ValidationException("Donation Not Found"));
+        Donation donation = repository.findById(dto.id()).orElseThrow(() -> new ResourceNotFoundException(dto.id()));
 
         int dif = dto.donatedQuantity() - donation.getDonatedQuantity();
         donation.getNecessity().addDonation(dif);
@@ -56,7 +57,7 @@ public class DonationService {
 
     @Transactional
     public void delete(Long id) {
-        Donation donation = repository.findById(id).orElseThrow(() -> new ValidationException("Donation Not Found"));
+        Donation donation = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         donation.getNecessity().removeDonation(donation.getDonatedQuantity());
 
         repository.delete(donation);

@@ -5,7 +5,6 @@ import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import com.martinsdev.nexussocial.api.service.AddressService;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,21 +41,13 @@ public class AddressController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AddressDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateAddressDTO dto) {
-        try {
-            AddressDTO address = service.update(id, dto);
-            return ResponseEntity.ok().body(address);
-        } catch (ValidationException exception){
-            return ResponseEntity.badRequest().build();
-        }
+        AddressDTO address = service.update(id, dto);
+        return ResponseEntity.ok().body(address);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        try {
-            service.delete(id);
-            return ResponseEntity.noContent().build();
-        } catch (ValidationException exception) {
-            return ResponseEntity.badRequest().build();
-        }
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

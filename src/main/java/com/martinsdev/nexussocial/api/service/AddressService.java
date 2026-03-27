@@ -3,6 +3,7 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.AddressDTO;
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
+import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
@@ -24,7 +25,7 @@ public class AddressService {
 
     public AddressDTO findById(Long id) {
         return repository.findById(id).map(AddressDTO::new)
-                .orElseThrow(() -> new ValidationException("This Address Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Transactional
@@ -38,7 +39,7 @@ public class AddressService {
     @Transactional
     public AddressDTO update(Long id, UpdateAddressDTO dto){
         Address address = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("This Address Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         address.updateData(dto);
         repository.save(address);
         return new AddressDTO(address);
@@ -46,7 +47,7 @@ public class AddressService {
 
     @Transactional
     public void delete(Long id){
-        Address address = repository.findById(id).orElseThrow(() -> new ValidationException("This Address Not Found"));
+        Address address = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(address);
     }
 }
