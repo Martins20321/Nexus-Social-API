@@ -1,7 +1,6 @@
 package com.martinsdev.nexussocial.api.service;
 
 import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
-import com.martinsdev.nexussocial.api.dto.InstitutionDTO;
 import com.martinsdev.nexussocial.api.dto.NecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
 import com.martinsdev.nexussocial.api.exception.ValidationException;
@@ -10,6 +9,7 @@ import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class NecessityService {
                 .orElseThrow(() -> new ValidationException("Necessity Not Found"));
     }
 
+    @Transactional
     public void insert(InsertNecessityDTO dto){
         var institution = institutionRepository.findById(dto.idInstitution())
                 .orElseThrow(() -> new ValidationException("Institution not found with ID: " + dto.idInstitution()));
@@ -36,13 +37,16 @@ public class NecessityService {
         repository.save(new Necessity(dto, institution));
     }
 
-    public void update(UpdateNecessityDTO dto){
+    @Transactional
+    public NecessityDTO update(UpdateNecessityDTO dto){
         Necessity necessity = repository.findById(dto.id())
                 .orElseThrow(() -> new ValidationException("Necessity Not Found"));
         necessity.updateData(dto);
         repository.save(necessity);
+        return new NecessityDTO(necessity);
     }
 
+    @Transactional
     public void delete(Long id){
         Necessity necessity = repository.findById(id).orElseThrow(() -> new ValidationException("Necessity Not Found"));
         repository.delete(necessity);

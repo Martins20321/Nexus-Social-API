@@ -10,6 +10,7 @@ import com.martinsdev.nexussocial.api.repository.AddressRepository;
 import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class InstitutionService {
                 .orElseThrow(() -> new ValidationException("Institution Not Found"));
     }
 
+    @Transactional
     public InstitutionDTO insert(InsertInstitutionDTO dto) {
         boolean alreadyExists = repository.existsByNameOrCnpj(dto.name(), dto.cnpj());
 
@@ -44,6 +46,7 @@ public class InstitutionService {
         }
     }
 
+    @Transactional
     public InstitutionDTO update(Long id, UpdateInstitutionDTO dto) {
         Institution institution = repository.findById(id)
                 .orElseThrow(() -> new ValidationException("Institution Not Found"));
@@ -52,6 +55,7 @@ public class InstitutionService {
         return new InstitutionDTO(institution);
     }
 
+    @Transactional
     public void delete(Long id) {
 
         Institution institution = repository.findById(id)

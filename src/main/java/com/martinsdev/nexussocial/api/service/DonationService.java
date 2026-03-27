@@ -43,7 +43,7 @@ public class DonationService {
     }
 
     @Transactional
-    public void update(UpdateDonationDTO dto) {
+    public DonationDTO update(UpdateDonationDTO dto) {
         Donation donation = repository.findById(dto.id()).orElseThrow(() -> new ValidationException("Donation Not Found"));
 
         int dif = dto.donatedQuantity() - donation.getDonatedQuantity();
@@ -51,11 +51,12 @@ public class DonationService {
 
         donation.updateData(dto);
         repository.save(donation);
+        return new DonationDTO(donation);
     }
 
+    @Transactional
     public void delete(Long id) {
         Donation donation = repository.findById(id).orElseThrow(() -> new ValidationException("Donation Not Found"));
-
         donation.getNecessity().removeDonation(donation.getDonatedQuantity());
 
         repository.delete(donation);

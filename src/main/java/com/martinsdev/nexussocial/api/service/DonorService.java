@@ -8,6 +8,7 @@ import com.martinsdev.nexussocial.api.model.Donor;
 import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class DonorService {
         return repository.findById(id).map(DonorDTO::new).orElseThrow(() -> new ValidationException("Donor Not Found"));
     }
 
+    @Transactional
     public void insert(InsertDonorDTO dto) {
         boolean alreadyExists = repository.existsByNameOrEmail(dto.name(), dto.email());
 
@@ -35,13 +37,16 @@ public class DonorService {
         }
     }
 
-    public void update(UpdateDonorDTO dto) {
+    @Transactional
+    public DonorDTO update(UpdateDonorDTO dto) {
         Donor donor = repository.findById(dto.id())
                 .orElseThrow(() -> new ValidationException("Donor Not Found"));
         donor.updateData(dto);
         repository.save(donor);
+        return new DonorDTO(donor);
     }
 
+    @Transactional
     public void delete(Long id){
         Donor donor = repository.findById(id)
                 .orElseThrow(() -> new ValidationException("Donor Not found"));
