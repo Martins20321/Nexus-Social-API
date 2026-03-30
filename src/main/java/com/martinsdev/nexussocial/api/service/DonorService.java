@@ -28,20 +28,22 @@ public class DonorService {
     }
 
     @Transactional
-    public void insert(InsertDonorDTO dto) {
+    public DonorDTO insert(InsertDonorDTO dto) {
         boolean alreadyExists = repository.existsByNameOrEmail(dto.name(), dto.email());
 
         if (alreadyExists) {
             throw new ValidationException("This donor already exists");
         } else {
-            repository.save(new Donor(dto));
+             Donor donor = new Donor(dto);
+             donor = repository.save(donor);
+            return new DonorDTO(donor);
         }
     }
 
     @Transactional
-    public DonorDTO update(UpdateDonorDTO dto) {
-        Donor donor = repository.findById(dto.id())
-                .orElseThrow(() -> new ResourceNotFoundException(dto.id()));
+    public DonorDTO update(Long id, UpdateDonorDTO dto) {
+        Donor donor = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         donor.updateData(dto);
         repository.save(donor);
         return new DonorDTO(donor);
@@ -50,7 +52,7 @@ public class DonorService {
     @Transactional
     public void delete(Long id){
         Donor donor = repository.findById(id)
-                .orElseThrow(() -> new ValidationException("Donor Not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(donor);
     }
 }
