@@ -26,7 +26,7 @@ public class InstitutionController {
         return ResponseEntity.ok().body(institutions);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<InstitutionDTO> findById(@PathVariable Long id) {
         InstitutionDTO institution = service.findById(id);
         return ResponseEntity.ok().body(institution);
