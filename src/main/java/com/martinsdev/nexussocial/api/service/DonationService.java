@@ -4,7 +4,6 @@ import com.martinsdev.nexussocial.api.dto.DonationDTO;
 import com.martinsdev.nexussocial.api.dto.InsertDonationDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
 import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Donation;
 import com.martinsdev.nexussocial.api.repository.DonationRepository;
 import com.martinsdev.nexussocial.api.repository.DonorRepository;
@@ -32,7 +31,7 @@ public class DonationService {
     }
 
     @Transactional
-    public void insert(InsertDonationDTO dto) {
+    public DonationDTO insert(InsertDonationDTO dto) {
         var donor = donorRepository.findById(dto.idDonor()).orElseThrow(() -> new ResourceNotFoundException(dto.idDonor()));
         var necessity = necessityRepository.findById(dto.idNecessity()).orElseThrow(() -> new ResourceNotFoundException(dto.idNecessity()));
 
@@ -41,11 +40,12 @@ public class DonationService {
         Donation donation = new Donation(dto, donor, necessity);
 
         repository.save(donation);
+        return new DonationDTO(donation);
     }
 
     @Transactional
-    public DonationDTO update(UpdateDonationDTO dto) {
-        Donation donation = repository.findById(dto.id()).orElseThrow(() -> new ResourceNotFoundException(dto.id()));
+    public DonationDTO update(Long id, UpdateDonationDTO dto) {
+        Donation donation = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 
         int dif = dto.donatedQuantity() - donation.getDonatedQuantity();
         donation.getNecessity().addDonation(dif);
