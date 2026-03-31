@@ -29,7 +29,7 @@ public class Necessity implements Serializable {
     private String title;
     private String description;
     private Integer requiredQuantity;
-    private Integer reachedQuantity;
+    private Integer reachedQuantity = 0;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
@@ -89,7 +89,7 @@ public class Necessity implements Serializable {
             this.reachedQuantity = 0;
         }
 
-        if(reachedQuantity <= requiredQuantity){
+        if(reachedQuantity < requiredQuantity){
             this.necessityStatus = NecessityStatus.OPEN;
         }
     }

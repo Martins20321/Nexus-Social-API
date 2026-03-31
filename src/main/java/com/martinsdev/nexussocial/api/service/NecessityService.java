@@ -31,17 +31,19 @@ public class NecessityService {
     }
 
     @Transactional
-    public void insert(InsertNecessityDTO dto){
+    public NecessityDTO insert(InsertNecessityDTO dto){
         var institution = institutionRepository.findById(dto.idInstitution())
                 .orElseThrow(() -> new ResourceNotFoundException(dto.idInstitution()));
 
-        repository.save(new Necessity(dto, institution));
+        Necessity necessity = new Necessity(dto, institution);
+        repository.save(necessity);
+        return new NecessityDTO(necessity);
     }
 
     @Transactional
-    public NecessityDTO update(UpdateNecessityDTO dto){
-        Necessity necessity = repository.findById(dto.id())
-                .orElseThrow(() -> new ResourceNotFoundException(dto.id()));
+    public NecessityDTO update(Long id, UpdateNecessityDTO dto){
+        Necessity necessity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         necessity.updateData(dto);
         repository.save(necessity);
         return new NecessityDTO(necessity);
