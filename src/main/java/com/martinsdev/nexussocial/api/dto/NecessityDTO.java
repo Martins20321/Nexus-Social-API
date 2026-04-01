@@ -10,9 +10,10 @@ public record NecessityDTO(Long id,
                            Integer requiredQuantity,
                            Integer reachedQuantity,
                            UrgencyLevel urgencyLevel,
-                           NecessityStatus necessityStatus) {
+                           NecessityStatus necessityStatus,
+                           InstitutionDTO institutionDTO) {
 
     public NecessityDTO(Necessity necessity){
-        this(necessity.getId(), necessity.getTitle(), necessity.getDescription(), necessity.getRequiredQuantity(), necessity.getReachedQuantity(), necessity.getUrgencyLevel(), necessity.getNecessityStatus());
+        this(necessity.getId(), necessity.getTitle(), necessity.getDescription(), necessity.getRequiredQuantity(), necessity.getReachedQuantity(), necessity.getUrgencyLevel(), necessity.getNecessityStatus(), new InstitutionDTO(necessity.getInstitution()));
     }
 }
