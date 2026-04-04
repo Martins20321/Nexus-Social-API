@@ -1,6 +1,5 @@
 package com.martinsdev.nexussocial.api.dto;
 
-import com.martinsdev.nexussocial.api.model.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
