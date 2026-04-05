@@ -64,11 +64,11 @@ class DonationControllerTest {
 
     @BeforeEach
     void initialization() {
-        addressRepository.deleteAll();
-        institutionRepository.deleteAll();
-        necessityRepository.deleteAll();
-        donorRepository.deleteAll();
         repository.deleteAll();
+        donorRepository.deleteAll();
+        necessityRepository.deleteAll();
+        institutionRepository.deleteAll();
+        addressRepository.deleteAll();
 
         Address address = new Address(null, "street", "20", "string", "Brasília", "DF");
         Address savedAddress = addressRepository.save(address);
@@ -107,6 +107,8 @@ class DonationControllerTest {
 
         //ASSERT
         Assertions.assertEquals(200, response.getStatus());
+        String content = response.getContentAsString();
+        Assertions.assertFalse(content.isEmpty());
     }
 
     @Test
