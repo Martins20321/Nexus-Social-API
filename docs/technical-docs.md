@@ -11,7 +11,7 @@ Este documento descreve a infraestrutura técnica e as escolhas de design feitas
 * **Banco de Dados:** * **Produção/Dev:** PostgreSQL.
     * **Testes:** H2 Database (In-memory) para isolamento total.
 * **Validação:** Jakarta Bean Validation (Hibernate Validator).
-* **Testes:**
+* **Testes:** JUnit 5 e Mockito para testes de integração e unitários.
 * **Validação da API:** Postman para testes manuais de endpoints
 * **Documentação:** SpringDoc OpenAPI (Swagger).
 * **CI/CD:** GitHub Actions para automação de build e execução de suíte de testes.
