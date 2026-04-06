@@ -64,19 +64,20 @@ Atualmente, o projeto prioriza a validação do fluxo completo (Controller -> Se
 
 ---
 
-## 6. Fluxos de Negócio Implementados via API
+## 6. Fluxos de Negócio 
 
-| Operação | Endpoint | Validação Principal |
-| :--- | :--- | :--- |
-| **Cadastro Instituição** | `POST /institutions` | Validação de CNPJ e Address obrigatório. |
-| **Gestão de Necessidade** | `POST /necessities` | Cálculo automático de `createdAt` e `status` inicial. |
-| **Atualização de Progresso** | `PUT /necessities/{id}` | Validação de estado persistido pós-update (Assert do Banco). |
-| **Registro de Doação** | `POST /donations` | Incremento atômico de quantidade na Necessity vinculada. |
+| Operação | Endpoint | Validação Principal | Status Esperado |
+| :--- | :--- | :--- | :--- |
+| **Cadastro Instituição** | `POST /institutions` | Validação de CNPJ e Address obrigatório. | `201 Created` |
+| **Gestão de Necessidade** | `POST /necessities` | Cálculo automático de `createdAt` e status inicial `OPEN`. | `201 Created` |
+| **Atualização de Progresso** | `PUT /necessities/{id}` | Validação de estado persistido pós-update (Assert do Banco). | `200 OK` |
+| **Remoção de Registro** | `DELETE /necessities/{id}` | Verificação de integridade referencial antes da exclusão. | `204 No Content` |
+| **Registro de Doação** | `POST /donations` | Incremento atômico de quantidade na necessidade vinculada. | `201 Created` |
 
 ---
 
 ## 7. Como Rodar os Testes Técnicos
-Para validar a integridade do projeto e garantir que o pipeline de CI passará com sucesso:
+O ecossistema de testes pode ser executado localmente para validar a integridade antes do *push* para o repositório remoto.
 
 ```bash
 # Executar todos os testes de integração
