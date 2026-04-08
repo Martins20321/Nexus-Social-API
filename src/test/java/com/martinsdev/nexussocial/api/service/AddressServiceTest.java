@@ -6,7 +6,6 @@ import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
@@ -57,6 +57,20 @@ class AddressServiceTest {
     }
 
     @Test
+    @DisplayName("It should not save the address when registering. Ex: invalid values")
+    void verificationErrorAddressRegistration() {
+
+        //ARRANGE
+        this.inAddressDTO = new InsertAddressDTO("Maple Street", "123A", "Downtown", "New York", "NY");
+
+        //repository configured to throw exception
+        when(repository.save(any(Address.class))).thenThrow(RuntimeException.class);
+
+        //ASSERT + ACT
+        Assertions.assertThrows(RuntimeException.class, () -> service.insert(inAddressDTO));
+    }
+
+    @Test
     @DisplayName("It should save the address when update")
     void verificationSuccessAddressUpdate() {
 
@@ -88,6 +102,24 @@ class AddressServiceTest {
     }
 
     @Test
+    @DisplayName("An exception should be thrown when attempting to update a non-existent ID")
+    void verificationAddressUpdateFailure() {
+
+        //ARRANGE
+        Long nonExistentId = 90l;
+        this.upAddressDTO = new UpdateAddressDTO(null, null, "Taguatinga", "Brasília", "DF");
+
+        when(repository.findById(nonExistentId)).thenReturn(Optional.empty());
+
+        //ASSERT + ACT
+        //checking if the exception was called
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> service.update(nonExistentId, upAddressDTO));
+
+        //ensuring that the save method should never be called
+        then(repository).should(Mockito.never()).save(any());
+    }
+
+    @Test
     void verificationSuccessAddressDelete() {
 
         //ARRANGE
@@ -106,4 +138,20 @@ class AddressServiceTest {
         Assertions.assertEquals(existingId, addressCaptor.getValue().getId());
     }
 
+    @Test
+    void verificationErrorAddressDelete() {
+
+        //ARRANGE
+        Long nonExistentId = 90l;
+
+        when(repository.findById(nonExistentId)).thenReturn(Optional.empty());
+
+        //ASSERT + ACT
+        //checking if the exception was called
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> service.delete(nonExistentId));
+
+        //ensuring that the delete method should never be called.
+        then(repository).should(Mockito.never()).delete(any());
+
+    }
 }
