@@ -58,7 +58,6 @@ public class InstitutionService {
 
     @Transactional
     public void delete(Long id) {
-
         Institution institution = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(institution);
