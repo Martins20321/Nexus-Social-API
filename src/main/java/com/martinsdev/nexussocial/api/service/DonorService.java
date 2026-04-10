@@ -34,8 +34,8 @@ public class DonorService {
         if (alreadyExists) {
             throw new ValidationException("This donor already exists");
         } else {
-             Donor donor = new Donor(dto);
-             donor = repository.save(donor);
+            Donor donor = new Donor(dto);
+            donor = repository.save(donor);
             return new DonorDTO(donor);
         }
     }
@@ -50,7 +50,7 @@ public class DonorService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Donor donor = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(donor);
