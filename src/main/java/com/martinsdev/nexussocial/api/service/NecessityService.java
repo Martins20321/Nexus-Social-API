@@ -4,7 +4,6 @@ import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.NecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
 import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Necessity;
 import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
@@ -36,7 +35,7 @@ public class NecessityService {
                 .orElseThrow(() -> new ResourceNotFoundException(dto.idInstitution()));
 
         Necessity necessity = new Necessity(dto, institution);
-        repository.save(necessity);
+        necessity = repository.save(necessity);
         return new NecessityDTO(necessity);
     }
 
