@@ -39,7 +39,7 @@ public class DonationService {
 
         Donation donation = new Donation(dto, donor, necessity);
 
-        repository.save(donation);
+        donation = repository.save(donation);
         return new DonationDTO(donation);
     }
 
