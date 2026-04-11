@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.NecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
 import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Necessity;
 import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
@@ -24,23 +25,29 @@ public class NecessityService {
         return repository.findAll().stream().map(NecessityDTO::new).toList();
     }
 
-    public NecessityDTO findById(Long id){
+    public NecessityDTO findById(Long id) {
         return repository.findById(id).map(NecessityDTO::new)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     @Transactional
-    public NecessityDTO insert(InsertNecessityDTO dto){
+    public NecessityDTO insert(InsertNecessityDTO dto) {
         var institution = institutionRepository.findById(dto.idInstitution())
                 .orElseThrow(() -> new ResourceNotFoundException(dto.idInstitution()));
 
-        Necessity necessity = new Necessity(dto, institution);
-        necessity = repository.save(necessity);
-        return new NecessityDTO(necessity);
+        boolean alreadyExists = repository.existsByTitle(dto.title());
+
+        if (alreadyExists) {
+            throw new ValidationException("This necessity already exists");
+        } else {
+            Necessity necessity = new Necessity(dto, institution);
+            necessity = repository.save(necessity);
+            return new NecessityDTO(necessity);
+        }
     }
 
     @Transactional
-    public NecessityDTO update(Long id, UpdateNecessityDTO dto){
+    public NecessityDTO update(Long id, UpdateNecessityDTO dto) {
         Necessity necessity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         necessity.updateData(dto);
@@ -49,7 +56,7 @@ public class NecessityService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Necessity necessity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(necessity);
     }

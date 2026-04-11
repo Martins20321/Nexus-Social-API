@@ -72,7 +72,7 @@ class InstitutionServiceTest {
 
     @Test
     @DisplayName("It should not save the Institution when registering. Ex: Institution already Exists")
-    void verificationErrorAddressRegistration() {
+    void verificationErrorInstitutionRegistration() {
 
         //ARRANGE
         Address addressMockado = new Address(2l, "Maple Street", "123A", "Downtown", "New York", "NY");
@@ -92,7 +92,7 @@ class InstitutionServiceTest {
 
     @Test
     @DisplayName("It should save the institution when update")
-    void verificationSuccessInsitutionUpdate() {
+    void verificationSuccessInstitutionUpdate() {
 
         //ARRANGE
         Long existingId = 1l;
@@ -131,7 +131,7 @@ class InstitutionServiceTest {
 
     @Test
     @DisplayName("An exception should be thrown when attempting to update a non-existent ID")
-    void verificationErrorInsitutionUpdate() {
+    void verificationErrorInstitutionUpdate() {
 
         //ARRANGE
         Long nonExistentId = 10l;
