@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:15
+    container_name: nexus-db
+    restart: always
+    environment:
+      POSTGRES_DB: nexussocial
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nexussocial"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: nexus-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/nexussocial
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123456789
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
