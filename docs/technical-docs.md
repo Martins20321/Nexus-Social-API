@@ -78,13 +78,12 @@ A confiabilidade do Nexus Social API é garantida por um ecossistema de testes d
 
 ---
 
-## 7. Como Rodar os Testes Técnicos
-O ecossistema de testes pode ser executado localmente para validar a integridade antes do *push* para o repositório remoto.
+## 7. Execução e Comandos Úteis
 
+Para facilitar a replicação do ambiente e garantir a qualidade do código, utilize os comandos abaixo centralizados no terminal (preferencialmente WSL2/Linux).
+
+### 🐳 Ambiente Docker (Recomendado)
+Para subir toda a infraestrutura (API + PostgreSQL) de forma isolada:
 ```bash
-# Executar todos os testes de integração
-./mvnw test
-
-# Executar uma classe específica (Ex: Necessity)
-./mvnw test -Dtest=NecessityControllerTest
-
+# Sobe os serviços e reconstrói a imagem da API
+docker compose up --build
