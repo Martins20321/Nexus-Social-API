@@ -8,13 +8,15 @@ Este documento descreve a infraestrutura técnica e as escolhas de design feitas
 * **Linguagem:** Java 17 (LTS) - Utilizando record types e melhorias de performance.
 * **Framework:** Spring Boot 3.5.11.
 * **Persistência:** Spring Data JPA com Hibernate.
-* **Banco de Dados:** * **Produção/Dev:** PostgreSQL.
+* **Containerização:** Docker & Docker Compose (Isolamento total de ambiente).
+* **Ambiente de Dev:** WSL 2 (Windows Subsystem for Linux) para máxima performance de I/O.
+* **Banco de Dados:** PostgreSQL 15 (Utilizado tanto em Dev quanto em Produção via containers).
     * **Testes:** H2 Database (In-memory) para isolamento total.
 * **Validação:** Jakarta Bean Validation (Hibernate Validator).
 * **Testes:** JUnit 5 e Mockito para testes de integração e unitários.
 * **Validação da API:** Postman para testes manuais de endpoints
 * **Documentação:** SpringDoc OpenAPI (Swagger).
-* **CI/CD:** GitHub Actions para automação de build e execução de suíte de testes.
+* **CI/CD:** GitHub Actions para automação de build e execução do ecossistema de testes.
 
 ---
 
@@ -53,14 +55,14 @@ A API foi projetada para ser previsível. Utilizando um `@ControllerAdvice` para
 A confiabilidade do Nexus Social API é garantida por um ecossistema de testes de integração que validam o fluxo de dados de ponta a ponta assegurando que as regras de negócio e as restrições de banco de dados sejam respeitadas.
 
 ### 🧪 Diferenciais Técnicos nos Testes:
-Atualmente, o projeto prioriza a validação do fluxo completo (Controller -> Service -> Repository), garantindo que a comunicação com o banco de dados e os contratos HTTP estejam íntegros.
+* **Testes Unitários (Service Layer):** Foco na validação isolada das regras de negócio. Utilizando Mockito para simular o comportamento dos repositórios, garantindo que a lógica (como o processamento de doações) esteja correta sem depender de conexões externas.
+   * **Destaque:** Validação da transição automática de estados, garantindo que uma Necessity mude seu status (ex: de OPEN para FULFILLED) assim que a meta de doações é atingida.
+* **Testes de Integração (End-to-End):** Validação do fluxo completo (Controller -> Service -> Repository), garantindo que os contratos HTTP e a persistência no banco estejam íntegros
 * **Isolamento com H2:** Uso do perfil `@ActiveProfiles("test")` para garantir execuções rápidas, voláteis e independentes do ambiente de desenvolvimento.
 * **MockMvc & JacksonTester:** Validação rigorosa de contratos JSON e códigos de status HTTP (201, 204, 400, 404).
 * **Gerenciamento de Constraints:** Implementação do `@BeforeEach` respeitando a **hierarquia de integridade referencial**.
 * **Validação de Estado Persistido:** Em cenários de `PUT`, o teste consulta o `Repository` após a requisição para confirmar se o dado foi realmente gravado com os valores corretos.
 * **CI/CD:** Integração com **GitHub Actions** para execução automática de testes a cada commit.
-
-* > *Nota: A implementação de testes unitários isolados para a camada de Service está em desenvolvimento*
 
 ---
 
