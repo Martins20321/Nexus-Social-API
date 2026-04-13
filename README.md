@@ -1,5 +1,6 @@
 # NexusSocial API 🌐
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat)
 ![CI/CD](https://github.com/Martins20321/Nexus-Social-API/actions/workflows/ci-cd.yml/badge.svg)
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.11-6DB33F?style=flat&logo=springboot&logoColor=white)
