@@ -62,12 +62,19 @@ cd Nexus-Social-API
 # Suba a infraestrutura (API + Banco)
 docker compose up --build
 ```
-
 ### Próximos Passos (Pós Execução)
 Após o container subir, você pode interagir com a aplicação:
 * **Acessar a Documentação:** Abra http://localhost:8080/swagger-ui.html para explorar e testar os endpoints via Swagger.
 * **Monitorar Logs:** Utilize `docker logs -f nexus-api` para acompanhar o comportamento da aplicação em tempo real.
 * **Encerrar o Ambiente:** Use `docker compose down` para parar os serviços e remover os containers de forma segura.
+  
+## 🧪 Qualidade e Validação (CI/CD)
+Para garantir a integridade do código e seguir os requisitos de qualidade:
+
+* **Executar Testes:** `./mvnw test`
+* **Executar Análise Estática (Lint):** `./mvnw checkstyle:check`
+
+> **Nota:** Estes processos são executados automaticamente pelo GitHub Actions em cada push.
 
 ---
 
