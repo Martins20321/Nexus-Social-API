@@ -55,41 +55,44 @@ public class Necessity implements Serializable {
         this.institution = institution;
     }
 
-    public void updateData(UpdateNecessityDTO dto){
-        if (dto.title() != null){
+    public void updateData(UpdateNecessityDTO dto) {
+        if (dto.title() != null) {
             this.title = dto.title();
         }
-        if(dto.description() != null){
+        if (dto.description() != null) {
             this.description = dto.description();
         }
-        if(dto.requiredQuantity() != null){
+        if (dto.requiredQuantity() != null) {
             this.requiredQuantity = dto.requiredQuantity();
         }
-        if(dto.reachedQuantity() != null){
+        if (dto.reachedQuantity() != null) {
             this.reachedQuantity = dto.reachedQuantity();
         }
     }
 
-    public void addDonation(Integer quantity){
-        if(quantity == 0){
+    public void addDonation(Integer quantity) {
+        if (quantity == 0) {
             throw new ValidationException("Donation quantity must be greater than zero");
         }
         this.reachedQuantity += quantity;
 
-        if(reachedQuantity >= requiredQuantity){
+        if (reachedQuantity >= requiredQuantity) {
             this.necessityStatus = NecessityStatus.FULFILLED;
+        } else {
+            this.necessityStatus = NecessityStatus.IN_PROGRESS;
         }
+
+
     }
 
-    public void removeDonation(Integer quantity){
-        if(this.reachedQuantity >= quantity){
+    public void removeDonation(Integer quantity) {
+        if (this.reachedQuantity >= quantity) {
             this.reachedQuantity -= quantity;
-        }
-        else{
+        } else {
             this.reachedQuantity = 0;
         }
 
-        if(reachedQuantity < requiredQuantity){
+        if (reachedQuantity < requiredQuantity) {
             this.necessityStatus = NecessityStatus.OPEN;
         }
     }
