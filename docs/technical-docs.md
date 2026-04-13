@@ -87,3 +87,19 @@ Para subir toda a infraestrutura (API + PostgreSQL) de forma isolada:
 ```bash
 # Sobe os serviços e reconstrói a imagem da API
 docker compose up --build
+```
+* **Rodar ecossistema de testes:**
+```bash
+./mvnw test
+````
+* **Validar padrão de código (Linting):**
+
+A aplicação utiliza o Checkstyle para garantir que o código siga as convenções do Google.
+```bash
+./mvnw checkstyle:check
+```
+
+## 8. Versionamento Semântico   
+Este projeto utiliza o padrão Semantic Versioning para comunicar mudanças de forma clara:
+   * Versão Atual: `1.0.0`
+   * Formato: `MAJOR.MINOR.PATCH`
