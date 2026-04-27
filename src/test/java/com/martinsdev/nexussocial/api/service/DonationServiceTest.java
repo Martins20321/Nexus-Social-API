@@ -2,7 +2,7 @@ package com.martinsdev.nexussocial.api.service;
 
 import com.martinsdev.nexussocial.api.dto.InsertDonationDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
-import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.model.*;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;

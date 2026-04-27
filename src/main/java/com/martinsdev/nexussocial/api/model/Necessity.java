@@ -2,7 +2,7 @@ package com.martinsdev.nexussocial.api.model;
 
 import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
+import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;
 import jakarta.persistence.*;

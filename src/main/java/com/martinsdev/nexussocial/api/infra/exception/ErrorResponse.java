@@ -1,4 +1,4 @@
-package com.martinsdev.nexussocial.api.exception;
+package com.martinsdev.nexussocial.api.infra.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.martinsdev.nexussocial.api.handler;
+package com.martinsdev.nexussocial.api.infra.handler;
 
-import com.martinsdev.nexussocial.api.exception.ErrorResponse;
-import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
+import com.martinsdev.nexussocial.api.infra.exception.ErrorResponse;
+import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

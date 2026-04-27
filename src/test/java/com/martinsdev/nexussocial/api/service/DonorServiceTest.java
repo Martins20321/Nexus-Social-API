@@ -2,8 +2,8 @@ package com.martinsdev.nexussocial.api.service;
 
 import com.martinsdev.nexussocial.api.dto.InsertDonorDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonorDTO;
-import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
+import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Donor;
 import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import org.junit.jupiter.api.Assertions;

@@ -2,8 +2,8 @@ package com.martinsdev.nexussocial.api.service;
 
 import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
-import com.martinsdev.nexussocial.api.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.exception.ValidationException;
+import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.model.Institution;
 import com.martinsdev.nexussocial.api.model.Necessity;
