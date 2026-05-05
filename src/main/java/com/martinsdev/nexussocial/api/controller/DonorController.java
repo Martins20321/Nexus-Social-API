@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.DonorDTO;
 import com.martinsdev.nexussocial.api.dto.InsertDonorDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonorDTO;
 import com.martinsdev.nexussocial.api.service.DonorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/donors")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class DonorController {
 
     private final DonorService service;

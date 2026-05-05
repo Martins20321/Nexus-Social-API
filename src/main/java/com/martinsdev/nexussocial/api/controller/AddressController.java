@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.AddressDTO;
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import com.martinsdev.nexussocial.api.service.AddressService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/addresses")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class AddressController {
 
     private final AddressService service;

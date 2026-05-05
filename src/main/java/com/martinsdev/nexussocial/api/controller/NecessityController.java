@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.NecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
 import com.martinsdev.nexussocial.api.service.NecessityService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/necessities")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class NecessityController {
 
     private final NecessityService service;

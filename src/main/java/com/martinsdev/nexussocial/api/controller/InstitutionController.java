@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.InsertInstitutionDTO;
 import com.martinsdev.nexussocial.api.dto.InstitutionDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateInstitutionDTO;
 import com.martinsdev.nexussocial.api.service.InstitutionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/institutions")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class InstitutionController {
 
     private final InstitutionService service;
