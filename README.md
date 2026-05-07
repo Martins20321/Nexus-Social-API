@@ -5,6 +5,7 @@
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.11-6DB33F?style=flat&logo=springboot&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat&logo=docker&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## 📋 Sobre o Projeto   
 O **NexusSocial** é uma solução backend desenhada para conectar doadores e instituições de caridade de forma assertiva. O objetivo principal é eliminar o desencontro de informações, permitindo que ONGs publiquem suas necessidades urgentes e doadores encontrem causas onde seu impacto será imediato.
@@ -77,6 +78,9 @@ Para garantir a integridade do código e seguir os requisitos de qualidade:
 > **Nota:** Estes processos são executados automaticamente pelo GitHub Actions em cada push.
 
 ---
+
+## 📄 Licença
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## 👤 Autor 
 **José Gabriel Martins**
