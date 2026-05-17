@@ -28,6 +28,15 @@ public class Address implements Serializable {
     private String city;
     private String state;
 
+    public Address(String zipCode, String street, String number, String neighborhood, String city, String state) {
+        this.zipCode = zipCode;
+        this.street = street;
+        this.number = number;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+    }
+
     public void updateData(UpdateAddressDTO dto) {
         if (dto.street() != null) {
             this.street = dto.street();

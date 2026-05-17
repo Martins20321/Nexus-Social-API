@@ -3,6 +3,8 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.AddressDTO;
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
+import com.martinsdev.nexussocial.api.dto.ViaCepResponseDTO;
+import com.martinsdev.nexussocial.api.infra.client.ViaCepClient;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
@@ -17,6 +19,7 @@ import java.util.List;
 public class AddressService {
 
     private final AddressRepository repository;
+    private final ViaCepClient cepClient;
 
     public List<AddressDTO> findAll() {
         return repository.findAll().stream().map(AddressDTO::new).toList();
@@ -29,7 +32,9 @@ public class AddressService {
 
     @Transactional
     public AddressDTO insert(InsertAddressDTO dto) {
-        Address address = new Address(dto);
+        //Before instantiating the address, let's search for the zip code.
+        ViaCepResponseDTO responseDTO = cepClient.findAddressByZipCode(dto.zipCode());
+        Address address = new Address(responseDTO.zipCode(), responseDTO.street(), dto.number(), responseDTO.neighborhood(), responseDTO.city(), responseDTO.state());
         address.setState(address.getState().toUpperCase());
         address = repository.save(address);
         return new AddressDTO(address);
