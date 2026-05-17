@@ -1,6 +1,5 @@
 package com.martinsdev.nexussocial.api.model;
 
-import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
