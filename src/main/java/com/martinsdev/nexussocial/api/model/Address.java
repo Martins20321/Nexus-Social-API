@@ -3,7 +3,10 @@ package com.martinsdev.nexussocial.api.model;
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -18,19 +21,12 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String zipCode;
     private String street;
     private String number;
     private String neighborhood;
     private String city;
     private String state;
-
-    public Address(InsertAddressDTO dto) {
-        this.street = dto.street();
-        this.number = dto.number();
-        this.neighborhood = dto.neighborhood();
-        this.city = dto.city();
-        this.state = dto.state();
-    }
 
     public void updateData(UpdateAddressDTO dto) {
         if (dto.street() != null) {
