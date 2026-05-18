@@ -47,7 +47,7 @@ class AddressControllerTest {
     @BeforeEach
     void initialization() {
         repository.deleteAll();
-        Address address = new Address(null, "street", "20", "string", "Brasília", "DF");
+        Address address = new Address("01001-000", "Praça da Sé", "91", "Sé", "São Paulo", "SP");
         Address savedAddress = repository.save(address);
         this.existingId = savedAddress.getId();
     }
