@@ -5,7 +5,7 @@ on:
   push:
     branches: [ "main","entrega-intermediária" ]
   pull_request: 
-    branches: [ "main", "enrega intermediária" ]
+    branches: [ "main","entrega-intermediária" ]
 
 jobs:
   #1º trabalho = fazer o build e testes
