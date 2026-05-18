@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
+import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,8 +36,11 @@ class AddressControllerTest {
     @Autowired
     private AddressRepository repository;
 
+    @Autowired
+    private InstitutionRepository institutionRepository;
+
     private Long existingId;
-    private Long nonexistentId = 10l;
+    private Long nonexistentId = 9999l;
 
     @Autowired
     private JacksonTester<InsertAddressDTO> addressDTOJacksonTester;
@@ -46,6 +50,7 @@ class AddressControllerTest {
 
     @BeforeEach
     void initialization() {
+        institutionRepository.deleteAll();
         repository.deleteAll();
         Address address = new Address("01001-000", "Praça da Sé", "91", "Sé", "São Paulo", "SP");
         Address savedAddress = repository.save(address);
