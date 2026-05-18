@@ -38,7 +38,7 @@ public class AddressController {
     public ResponseEntity<AddressDTO> insert(@RequestBody @Valid InsertAddressDTO dto) {
         AddressDTO address = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(address.id()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(address);
     }
 
     @PutMapping("/{id}")
