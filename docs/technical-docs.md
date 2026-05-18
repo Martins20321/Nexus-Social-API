@@ -17,6 +17,9 @@ Este documento descreve a infraestrutura técnica e as escolhas de design feitas
 * **Validação da API:** Postman para testes manuais de endpoints
 * **Documentação:** SpringDoc OpenAPI (Swagger).
 * **CI/CD:** GitHub Actions para automação de build e execução do ecossistema de testes.
+* **Segurança:** Spring Security com autenticação stateless via JWT (Auth0 java-jwt 4.4.0).
+* **Integração Externa:** ViaCEP API consumida via RestClient (Spring 3.2+).
+* **Inicialização de Dados:** DataSeeder via ApplicationRunner para criação de usuário padrão.
 
 ---
 
@@ -30,7 +33,28 @@ A API segue o padrão de **Camadas (Layered Architecture)**, garantindo o desaco
 
 ---
 
-## 3. Modelagem de Dados e Integridade
+## 3. Segurança e Autenticação
+
+A API utiliza autenticação **stateless** com **JWT (JSON Web Token)**:
+
+- Todas as rotas são protegidas exceto `POST /auth/login` e a documentação Swagger.
+- O token é gerado no login e deve ser enviado no header `Authorization: Bearer Token`.
+- Um `SecurityFilter` intercepta cada requisição, valida o token e injeta o usuário no contexto do Spring Security.
+
+---
+
+## 4. Integração com API Externa (ViaCEP)
+
+O cadastro de endereços foi integrado à API pública ViaCEP para validação e enriquecimento automático:
+
+- O cliente envia apenas o **CEP** e o **número**.
+- O `ViaCepClient` consulta `https://viacep.com.br/ws/{cep}/json/` via `RestClient`.
+- Os campos `logradouro`, `bairro`, `cidade` e `UF` são preenchidos automaticamente.
+- CEPs inválidos retornam `HTTP 400` com mensagem descritiva via `InvalidZipCodeException`.
+
+--- 
+
+## 5. Modelagem de Dados e Integridade
 O sistema foi projetado para manter uma consistência rígida entre as entidades, utilizando o diagrama de classes abaixo como referência:
 
 > ![Diagrama de Classes](./images/Class%20DiagramV1.png)
@@ -41,17 +65,19 @@ O sistema foi projetado para manter uma consistência rígida entre as entidades
 
 ---
 
-## 4. Padronização e Tratamento de Erros
+## 6. Padronização e Tratamento de Erros
 A API foi projetada para ser previsível. Utilizando um `@ControllerAdvice` para interceptar exceções e garantir que o cliente receba **Status Codes** consistentes:
 
 * **201 Created:** Retornado em cadastros bem-sucedidos (`Institution`, `Necessity`, `Donor`, `Donation`, `Address`).
 * **204 No Content:** Utilizado em deleções confirmadas.
-* **400 Bad Request:** Acionado pelo **Bean Validation** quando campos obrigatórios (como valores nulos) são enviados.
+* **400 Bad Request:** Acionado pelo **Bean Validation** quando campos obrigatórios são enviados como nulos, ou quando um CEP inválido/inexistente é informado no cadastro de endereço.
 * **404 Not Found:** Retornado quando uma busca por ID não encontra registros no banco (Ex: busca de necessidade inexistente).
-
+* **401 Unauthorized:** Token JWT ausente ou expirado.
+* **403 Forbidden:** Usuário autenticado sem permissão para o recurso.
+  
 ---
 
-## 5. Estratégia de Testes (Quality Assurance)
+## 7. Estratégia de Testes (Quality Assurance)
 A confiabilidade do Nexus Social API é garantida por um ecossistema de testes de integração que validam o fluxo de dados de ponta a ponta assegurando que as regras de negócio e as restrições de banco de dados sejam respeitadas.
 
 ### 🧪 Diferenciais Técnicos nos Testes:
@@ -66,7 +92,7 @@ A confiabilidade do Nexus Social API é garantida por um ecossistema de testes d
 
 ---
 
-## 6. Fluxos de Negócio 
+## 8. Fluxos de Negócio 
 
 | Operação | Endpoint | Validação Principal | Status Esperado |
 | :--- | :--- | :--- | :--- |
@@ -78,7 +104,7 @@ A confiabilidade do Nexus Social API é garantida por um ecossistema de testes d
 
 ---
 
-## 7. Execução e Comandos Úteis
+## 9. Execução e Comandos Úteis
 
 Para facilitar a replicação do ambiente e garantir a qualidade do código, utilize os comandos abaixo centralizados no terminal (preferencialmente WSL2/Linux).
 
@@ -99,7 +125,7 @@ A aplicação utiliza o Checkstyle para garantir que o código siga as convenç�
 ./mvnw checkstyle:check
 ```
 
-## 8. Versionamento Semântico   
+## 10. Versionamento Semântico   
 Este projeto utiliza o padrão Semantic Versioning para comunicar mudanças de forma clara:
-   * Versão Atual: `1.0.0`
+   * Versão Atual: `1.1.0`
    * Formato: `MAJOR.MINOR.PATCH`
