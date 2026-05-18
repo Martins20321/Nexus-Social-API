@@ -108,7 +108,7 @@ class AddressControllerTest {
     void verificationOfSuccessWhenRegisteringAddress() throws Exception {
 
         //ARRANGE
-        InsertAddressDTO addressDTO = new InsertAddressDTO("street", "20", "string", "Brasília", "DF");
+        InsertAddressDTO addressDTO = new InsertAddressDTO("01001000", "56");
 
         //ACT
         var response = mockMvc.perform(
@@ -126,7 +126,7 @@ class AddressControllerTest {
     void verificationOfErrorWhenRegisteringAddress() throws Exception {
 
         //ARRANGE
-        InsertAddressDTO addressDTO = new InsertAddressDTO(null, null, null, null, null);
+        InsertAddressDTO addressDTO = new InsertAddressDTO(null, null);
 
         //ACT
         var response = mockMvc.perform(
