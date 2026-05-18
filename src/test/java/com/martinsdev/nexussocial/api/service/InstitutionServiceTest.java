@@ -45,7 +45,7 @@ class InstitutionServiceTest {
     void verificationSucessInstitutionRegistration() {
 
         //ARRANGE
-        Address addressMockado = new Address(2l, "Maple Street", "123A", "Downtown", "New York", "NY");
+        Address addressMockado = new Address("01001-000", "Praça da Sé", "91", "Sé", "São Paulo", "SP");
 
         this.inInstitutionDTO = new InsertInstitutionDTO("ONG RN", "12.345.678/0001-95", "(81)98321-5423",
                 "ongrn@email.com", addressMockado.getId());
@@ -75,7 +75,7 @@ class InstitutionServiceTest {
     void verificationErrorInstitutionRegistration() {
 
         //ARRANGE
-        Address addressMockado = new Address(2l, "Maple Street", "123A", "Downtown", "New York", "NY");
+        Address addressMockado = new Address("01001-000", "Praça da Sé", "91", "Sé", "São Paulo", "SP");
 
         this.inInstitutionDTO = new InsertInstitutionDTO("ONG RN", "12.345.678/0001-95", "(81)98321-5423",
                 "ongrn@email.com", addressMockado.getId());

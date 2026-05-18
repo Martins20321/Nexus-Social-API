@@ -4,6 +4,7 @@ import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
+import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,8 +36,11 @@ class AddressControllerTest {
     @Autowired
     private AddressRepository repository;
 
+    @Autowired
+    private InstitutionRepository institutionRepository;
+
     private Long existingId;
-    private Long nonexistentId = 10l;
+    private Long nonexistentId = 9999l;
 
     @Autowired
     private JacksonTester<InsertAddressDTO> addressDTOJacksonTester;
@@ -46,8 +50,9 @@ class AddressControllerTest {
 
     @BeforeEach
     void initialization() {
+        institutionRepository.deleteAll();
         repository.deleteAll();
-        Address address = new Address(null, "street", "20", "string", "Brasília", "DF");
+        Address address = new Address("01001-000", "Praça da Sé", "91", "Sé", "São Paulo", "SP");
         Address savedAddress = repository.save(address);
         this.existingId = savedAddress.getId();
     }
@@ -108,7 +113,7 @@ class AddressControllerTest {
     void verificationOfSuccessWhenRegisteringAddress() throws Exception {
 
         //ARRANGE
-        InsertAddressDTO addressDTO = new InsertAddressDTO("street", "20", "string", "Brasília", "DF");
+        InsertAddressDTO addressDTO = new InsertAddressDTO("01001000", "56");
 
         //ACT
         var response = mockMvc.perform(
@@ -126,7 +131,7 @@ class AddressControllerTest {
     void verificationOfErrorWhenRegisteringAddress() throws Exception {
 
         //ARRANGE
-        InsertAddressDTO addressDTO = new InsertAddressDTO(null, null, null, null, null);
+        InsertAddressDTO addressDTO = new InsertAddressDTO(null, null);
 
         //ACT
         var response = mockMvc.perform(

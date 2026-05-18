@@ -1,6 +1,7 @@
 package com.martinsdev.nexussocial.api.infra.handler;
 
 import com.martinsdev.nexussocial.api.infra.exception.ErrorResponse;
+import com.martinsdev.nexussocial.api.infra.exception.InvalidZipCodeException;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +40,14 @@ public class GlobalExceptionHandler {
         String error = "Business Logic Error";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(errorResponse);
+    }
+
+    @ExceptionHandler(InvalidZipCodeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidZipCodeException(InvalidZipCodeException ex, HttpServletRequest request){
+        String error = "Invalid Zip Code";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(),error, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(errorResponse);
     }
 }

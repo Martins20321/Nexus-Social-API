@@ -2,6 +2,8 @@ package com.martinsdev.nexussocial.api.service;
 
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
+import com.martinsdev.nexussocial.api.dto.ViaCepResponseDTO;
+import com.martinsdev.nexussocial.api.infra.client.ViaCepClient;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.repository.AddressRepository;
@@ -27,6 +29,9 @@ class AddressServiceTest {
     @Mock
     private AddressRepository repository;
 
+    @Mock
+    private ViaCepClient cepClient;
+
     private InsertAddressDTO inAddressDTO;
 
     @Mock
@@ -40,11 +45,17 @@ class AddressServiceTest {
     void verificationSuccessAddressRegistration() {
 
         //ARRANGE
-        this.inAddressDTO = new InsertAddressDTO("Maple Street", "123A", "Downtown", "New York", "NY");
-        Address addressMockado = new Address(inAddressDTO);
+        this.inAddressDTO = new InsertAddressDTO("01001000", "91");
+
+        //Simulating the return from the ViaCep API
+        ViaCepResponseDTO responseDTO = new ViaCepResponseDTO("01001-000", "Praça da Sé",
+                "Sé", "São Paulo", "SP", false);
+        Address addressMockado = new Address(responseDTO.zipCode(), responseDTO.street(), inAddressDTO.number(),
+                responseDTO.neighborhood(), responseDTO.city(), responseDTO.state());
         addressMockado.setId(1l); //Simulating that the bank generated ID 1
 
         when(repository.save(ArgumentMatchers.any(Address.class))).thenReturn(addressMockado);
+        when(cepClient.findAddressByZipCode("01001000")).thenReturn(responseDTO);
 
         //ACT
         var result = service.insert(inAddressDTO);
@@ -52,7 +63,7 @@ class AddressServiceTest {
         //ASSERT
         then(repository).should().save(addressCaptor.capture());
         Address savedAddress = addressCaptor.getValue();
-        Assertions.assertEquals(inAddressDTO.state(), savedAddress.getState());
+        Assertions.assertEquals(savedAddress.getZipCode(), result.zipCode());
         Assertions.assertEquals(addressMockado.getId(), result.id());
     }
 
@@ -61,9 +72,13 @@ class AddressServiceTest {
     void verificationErrorAddressRegistration() {
 
         //ARRANGE
-        this.inAddressDTO = new InsertAddressDTO("Maple Street", "123A", "Downtown", "New York", "NY");
+        this.inAddressDTO = new InsertAddressDTO("01001000", "91");
+        ViaCepResponseDTO responseDTO = new ViaCepResponseDTO("01001-000", "Praça da Sé",
+                "Sé", "São Paulo", "SP", false);
+
 
         //repository configured to throw exception
+        when(cepClient.findAddressByZipCode("01001000")).thenReturn(responseDTO);
         when(repository.save(any(Address.class))).thenThrow(RuntimeException.class);
 
         //ASSERT + ACT

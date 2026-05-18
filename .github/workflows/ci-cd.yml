@@ -3,9 +3,9 @@ name: NexusSocial-API - CI/CD Pipeline
 #Quando este robô deve rodar
 on:
   push:
-    branches: [ "main","entrega-intermediária" ]
-  pull_request: 
-    branches: [ "main","entrega-intermediária" ]
+    branches: [ "main", "entrega-intermediária"]
+  pull_request:
+    branches: [ "main", "entrega-intermediária" ]
 
 jobs:
   #1º trabalho = fazer o build e testes
