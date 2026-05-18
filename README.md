@@ -1,6 +1,6 @@
 # NexusSocial API 🌐
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue?style=flat)
+![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat)
 ![CI/CD](https://github.com/Martins20321/Nexus-Social-API/actions/workflows/ci-cd.yml/badge.svg)
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.11-6DB33F?style=flat&logo=springboot&logoColor=white)
@@ -39,6 +39,8 @@ Neste projeto, apliquei práticas avançadas para garantir a qualidade de softwa
 * **Testes Automatizados:** Cobertura de testes unitários e de integração utilizando **JUnit 5**, **Mockito** e **MockMvc**.
 * **Integridade Referencial:** Modelagem de banco de dados no PostgreSQL com constraints rigorosas para evitar inconsistências de dados.
 * **Padronização REST:** Tratamento global de exceções e uso de DTOs (`Records`) para contratos de API limpos.
+* **Segurança JWT:** Autenticação stateless com tokens JWT (Auth0), filtro customizado e rotas protegidas via Spring Security.
+* **Integração Externa:** Consumo da API pública ViaCEP via `RestClient` para validação e enriquecimento automático de endereços no cadastro.
 
 ---
 
@@ -48,6 +50,16 @@ Para entender as decisões de design, padrões de projeto (Layered Architecture,
 👉 [**Guia Técnico de Desenvolvimento (Technical README)**](./docs/technical-docs.md)
 
 ---
+
+## 📖 Documentação Detalhada
+Um usuário é criado automaticamente na inicialização da aplicação:
+
+| Campo | Valor |
+|-------|-------|
+| Login | `professor@nexus.com` |
+| Senha | `professorNexus123` |
+
+> Utilize essas credenciais no endpoint `POST /auth/login` para obter o token JWT e autenticar nas demais rotas via Swagger.
 
 ## 🚀 Como Rodar (Quick Start)
 
