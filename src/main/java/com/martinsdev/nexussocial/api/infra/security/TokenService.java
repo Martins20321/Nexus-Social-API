@@ -54,13 +54,13 @@ public class TokenService {
         }
     }
 
-    public String getSubject(String tokenJWT) {
+    public String getSubject(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.require(algorithm)
                     .withIssuer("Nexus Social API")
                     .build()
-                    .verify(tokenJWT)
+                    .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
             throw new RuntimeException("Invalid or expired JWT token");
