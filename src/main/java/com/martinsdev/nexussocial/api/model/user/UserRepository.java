@@ -1,4 +1,4 @@
-package com.martinsdev.nexussocial.api.model.User;
+package com.martinsdev.nexussocial.api.model.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;

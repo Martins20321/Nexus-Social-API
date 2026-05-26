@@ -27,8 +27,7 @@ public class ViaCepClient {
             }
 
             return response;
-        }
-        catch (HttpClientErrorException ex){
+        } catch (HttpClientErrorException ex) {
             throw new InvalidZipCodeException(zipCode);
         }
     }

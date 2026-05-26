@@ -3,7 +3,7 @@ package com.martinsdev.nexussocial.api.controller;
 import com.martinsdev.nexussocial.api.dto.DataAuthenticationDTO;
 import com.martinsdev.nexussocial.api.infra.security.TokenDataJWT;
 import com.martinsdev.nexussocial.api.infra.security.TokenService;
-import com.martinsdev.nexussocial.api.model.User.User;
+import com.martinsdev.nexussocial.api.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

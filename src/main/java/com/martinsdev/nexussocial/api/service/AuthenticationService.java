@@ -1,6 +1,6 @@
 package com.martinsdev.nexussocial.api.service;
 
-import com.martinsdev.nexussocial.api.model.User.UserRepository;
+import com.martinsdev.nexussocial.api.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

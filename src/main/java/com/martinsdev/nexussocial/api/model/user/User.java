@@ -1,4 +1,4 @@
-package com.martinsdev.nexussocial.api.model.User;
+package com.martinsdev.nexussocial.api.model.user;
 
 import jakarta.persistence.*;
 import lombok.*;
