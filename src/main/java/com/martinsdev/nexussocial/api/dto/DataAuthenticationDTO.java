@@ -1,4 +1,7 @@
 package com.martinsdev.nexussocial.api.dto;
 
-public record DataAuthenticationDTO(String login,String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DataAuthenticationDTO(@NotBlank String login,
+                                    @NotBlank String password) {
 }

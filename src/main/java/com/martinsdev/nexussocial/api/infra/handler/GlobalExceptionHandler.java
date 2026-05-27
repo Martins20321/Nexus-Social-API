@@ -1,9 +1,6 @@
 package com.martinsdev.nexussocial.api.infra.handler;
 
-import com.martinsdev.nexussocial.api.infra.exception.ErrorResponse;
-import com.martinsdev.nexussocial.api.infra.exception.InvalidZipCodeException;
-import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
+import com.martinsdev.nexussocial.api.infra.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +41,19 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidZipCodeException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidZipCodeException(InvalidZipCodeException ex, HttpServletRequest request){
+    public ResponseEntity<ErrorResponse> handleInvalidZipCodeException(InvalidZipCodeException ex, HttpServletRequest request) {
         String error = "Invalid Zip Code";
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(),error, ex.getMessage(), request.getRequestURI());
+        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(errorResponse);
     }
+
+    @ExceptionHandler(InvalidRefreshTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidRefreshTokenException(InvalidRefreshTokenException ex, HttpServletRequest request) {
+        String error = "Invalid Refresh Token";
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(errorResponse);
+    }
+
 }
