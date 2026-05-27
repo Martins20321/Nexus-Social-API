@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,7 @@ public class TokenService {
             var refresthToken = JWT.create()
                     .withIssuer("Nexus Social API")
                     .withSubject(user.getId().toString())
+                    .withJWTId(UUID.randomUUID().toString())
                     .withExpiresAt(expiration)
                     .sign(algorithm);
             refreshTokenRepository.save(new RefreshToken(null, refresthToken, false,
