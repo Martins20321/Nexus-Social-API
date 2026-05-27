@@ -48,14 +48,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-    @ExceptionHandler(RefreshTokenNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleRefreshTokenNotFoundException(RefreshTokenNotFoundException ex, HttpServletRequest request) {
-        String error = "Refresh Token Not Found";
-        HttpStatus status = HttpStatus.UNAUTHORIZED;
-        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(errorResponse);
-    }
-
     @ExceptionHandler(InvalidRefreshTokenException.class)
     public ResponseEntity<ErrorResponse> handleInvalidRefreshTokenException(InvalidRefreshTokenException ex, HttpServletRequest request) {
         String error = "Invalid Refresh Token";

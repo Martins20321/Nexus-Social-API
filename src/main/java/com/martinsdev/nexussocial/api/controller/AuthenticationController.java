@@ -2,7 +2,6 @@ package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.DataAuthenticationDTO;
 import com.martinsdev.nexussocial.api.infra.exception.InvalidRefreshTokenException;
-import com.martinsdev.nexussocial.api.infra.exception.RefreshTokenNotFoundException;
 import com.martinsdev.nexussocial.api.infra.security.TokenDataJWT;
 import com.martinsdev.nexussocial.api.infra.security.TokenService;
 import com.martinsdev.nexussocial.api.infra.security.DataRefreshTokenDTO;
@@ -45,7 +44,7 @@ public class AuthenticationController {
         tokenService.getSubject(dataRefreshDTO.refreshToken());
 
         RefreshToken refreshToken = tokenRepository.findByToken(dataRefreshDTO.refreshToken())
-                .orElseThrow(() -> new RefreshTokenNotFoundException(dataRefreshDTO.refreshToken()));
+                .orElseThrow(() -> new InvalidRefreshTokenException("Refresh token Not Found: " + dataRefreshDTO.refreshToken()));
 
         if (refreshToken.isUsed()){
             throw new InvalidRefreshTokenException("This token has already been used");

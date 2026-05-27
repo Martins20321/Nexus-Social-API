@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.martinsdev.nexussocial.api.infra.exception.InvalidRefreshTokenException;
 import com.martinsdev.nexussocial.api.model.refreshtoken.RefreshToken;
 import com.martinsdev.nexussocial.api.model.refreshtoken.RefreshTokenRepository;
 import com.martinsdev.nexussocial.api.model.user.User;
@@ -63,7 +64,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Invalid or expired JWT token");
+            throw new InvalidRefreshTokenException("Invalid or expired JWT token");
         }
     }
 
