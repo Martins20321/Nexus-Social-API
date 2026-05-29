@@ -20,6 +20,7 @@ Este documento descreve a infraestrutura técnica e as escolhas de design feitas
 * **Segurança:** Spring Security com autenticação stateless via JWT (Auth0 java-jwt 4.4.0).
 * **Integração Externa:** ViaCEP API consumida via RestClient (Spring 3.2+).
 * **Inicialização de Dados:** DataSeeder via ApplicationRunner para criação de usuário padrão.
+* **Observabilidade:** Spring Boot Actuator com endpoints health, info e metrics.
 
 ---
 
@@ -40,7 +41,9 @@ A API utiliza autenticação **stateless** com **JWT (JSON Web Token)**:
 - Todas as rotas são protegidas exceto `POST /auth/login` e a documentação Swagger.
 - O token é gerado no login e deve ser enviado no header `Authorization: Bearer Token`.
 - Um `SecurityFilter` intercepta cada requisição, valida o token e injeta o usuário no contexto do Spring Security.
-
+- RefreshToken com rotation strategy — cada token só pode ser usado uma vez. Token já utilizado ou expirado retorna `401 Unauthorized`.
+- `/actuator/health` acessível publicamente para monitoramento de saúde da aplicação.
+  
 ---
 
 ## 4. Integração com API Externa (ViaCEP)
@@ -101,6 +104,8 @@ A confiabilidade do Nexus Social API é garantida por um ecossistema de testes d
 | **Atualização de Progresso** | `PUT /necessities/{id}` | Validação de estado persistido pós-update (Assert do Banco). | `200 OK` |
 | **Remoção de Registro** | `DELETE /necessities/{id}` | Verificação de integridade referencial antes da exclusão. | `204 No Content` |
 | **Registro de Doação** | `POST /donations` | Incremento atômico de quantidade na necessidade vinculada. | `201 Created` |
+| **Login** | `POST /auth/login` | Autenticação e geração de AccessToken + RefreshToken. | `200 OK` |
+| **Refresh Token** | `POST /auth/refresh` | Rotação do RefreshToken e geração de novos tokens. | `200 OK` |
 
 ---
 
