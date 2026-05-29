@@ -41,6 +41,8 @@ Neste projeto, apliquei práticas avançadas para garantir a qualidade de softwa
 * **Padronização REST:** Tratamento global de exceções e uso de DTOs (`Records`) para contratos de API limpos.
 * **Segurança JWT:** Autenticação stateless com tokens JWT (Auth0), filtro customizado e rotas protegidas via Spring Security.
 * **Integração Externa:** Consumo da API pública ViaCEP via `RestClient` para validação e enriquecimento automático de endereços no cadastro.
+* **RefreshToken com Rotation Strategy:** Renovação segura de sessões com tokens JWT de uso único. Token já utilizado ou expirado retorna 401 automaticamente.
+* **Observabilidade:** Spring Boot Actuator expondo `/actuator/health` publicamente para monitoramento do estado da aplicação.
 
 ---
 
@@ -51,7 +53,7 @@ Para entender as decisões de design, padrões de projeto (Layered Architecture,
 
 ---
 
-## 📖 Documentação Detalhada
+## 🔐 Acesso Padrão
 Um usuário é criado automaticamente na inicialização da aplicação:
 
 | Campo | Valor |
