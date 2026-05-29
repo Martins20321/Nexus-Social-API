@@ -3,7 +3,7 @@ name: NexusSocial-API - CI/CD Pipeline
 #Quando este robô deve rodar
 on:
   push:
-    branches: [ "main", "feat/refresh-token"]
+    branches: [ "main", "feat/actuator"]
   pull_request:
     branches: [ "main" ]
 
