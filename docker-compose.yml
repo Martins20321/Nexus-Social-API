@@ -4,9 +4,9 @@ services:
     container_name: nexus-db
     restart: always
     environment:
-      POSTGRES_DB: nexussocial
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     healthcheck:
