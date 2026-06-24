@@ -7,6 +7,15 @@
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat&logo=docker&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
+## 🌐 API em Produção
+> A API está disponível publicamente via AWS EC2:
+> 
+> **Base URL:** `http://3.83.190.52:8080`
+> 
+> **Health Check:** `http://3.83.190.52:8080/actuator/health`
+> 
+> **Documentação:** `http://3.83.190.52:8080/swagger-ui.html`
+
 ## 📋 Sobre o Projeto   
 O **NexusSocial** é uma solução backend desenhada para conectar doadores e instituições de caridade de forma assertiva. O objetivo principal é eliminar o desencontro de informações, permitindo que ONGs publiquem suas necessidades urgentes e doadores encontrem causas onde seu impacto será imediato.
 

@@ -21,6 +21,7 @@ Este documento descreve a infraestrutura técnica e as escolhas de design feitas
 * **Integração Externa:** ViaCEP API consumida via RestClient (Spring 3.2+).
 * **Inicialização de Dados:** DataSeeder via ApplicationRunner para criação de usuário padrão.
 * **Observabilidade:** Spring Boot Actuator com endpoints health, info e metrics.
+* **Cloud:** AWS EC2 (t3.micro) — API disponível publicamente em produção.
 
 ---
 
