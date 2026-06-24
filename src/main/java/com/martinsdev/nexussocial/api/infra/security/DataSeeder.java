@@ -1,5 +1,6 @@
 package com.martinsdev.nexussocial.api.infra.security;
 
+import com.martinsdev.nexussocial.api.model.enums.UserRole;
 import com.martinsdev.nexussocial.api.model.user.User;
 import com.martinsdev.nexussocial.api.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -19,10 +22,15 @@ public class DataSeeder implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (repository.findByLogin("professor") == null){
-            User user = new User(); 
-            user.setLogin("professor@nexus.com");
-            user.setPassword(passwordEncoder.encode("professorNexus123"));
+        if (repository.findByRole(UserRole.ADMIN).isEmpty()){
+            User user = User.builder()
+                    .name("ADMIN Nexus")
+                    .email("admin@nexus.com")
+                    .password(passwordEncoder.encode("admin1090"))
+                    .role(UserRole.ADMIN)
+                    .enabled(true)
+                    .createdAt(LocalDateTime.now())
+                    .build();
             repository.save(user);
         }
     }
