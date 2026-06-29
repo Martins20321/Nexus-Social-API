@@ -1,7 +1,7 @@
 package com.martinsdev.nexussocial.api.model;
 
-import com.martinsdev.nexussocial.api.dto.InsertDonationDTO;
-import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
+import com.martinsdev.nexussocial.api.model.enums.DonationStatus;
+import com.martinsdev.nexussocial.api.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "tb_donation")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -22,7 +23,12 @@ public class Donation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer donatedQuantity;
-    private LocalDateTime moment = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    private DonationStatus status;
+    private LocalDateTime createdAt;
+    private LocalDateTime confirmedAt;
+    private LocalDateTime cancelledAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "necessity_id")
@@ -30,17 +36,5 @@ public class Donation implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donor_id")
-    private Donor donor;
-
-    public Donation(InsertDonationDTO dto, Donor donor, Necessity necessity) {
-        this.donatedQuantity = dto.donatedQuantity();
-        this.donor = donor;
-        this.necessity = necessity;
-    }
-
-    public void updateData(UpdateDonationDTO dto) {
-        if(dto.donatedQuantity() != null){
-            this.donatedQuantity = dto.donatedQuantity();
-        }
-    }
+    private User donor;
 }
