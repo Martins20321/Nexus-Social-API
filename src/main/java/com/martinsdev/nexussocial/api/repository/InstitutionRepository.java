@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
     boolean existsByNameOrCnpj(String name, String cnpj);
+
+    boolean existsByPhone(String phone);
 }

@@ -4,5 +4,6 @@ public enum NecessityStatus {
 
     OPEN,
     IN_PROGRESS,
-    FULFILLED;
+    FULFILLED,
+    CLOSED;
 }

@@ -36,7 +36,7 @@ public class Necessity implements Serializable {
     private UrgencyLevel urgencyLevel;
 
     @Enumerated(EnumType.STRING)
-    private NecessityStatus necessityStatus;
+    private NecessityStatus Status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")

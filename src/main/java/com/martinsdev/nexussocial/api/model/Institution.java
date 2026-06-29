@@ -32,6 +32,7 @@ public class Institution implements Serializable {
     private String phone;
     private String email;
     private LocalDateTime createdAt;
+    private boolean enabled;
 
     @Embedded
     private Address address;
