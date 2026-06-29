@@ -1,7 +1,7 @@
 package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.InsertInstitutionDTO;
-import com.martinsdev.nexussocial.api.dto.InstitutionDTO;
+import com.martinsdev.nexussocial.api.dto.InstitutionResponseDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateInstitutionDTO;
 import com.martinsdev.nexussocial.api.service.InstitutionService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,27 +23,27 @@ public class InstitutionController {
     private final InstitutionService service;
 
     @GetMapping
-    public ResponseEntity<List<InstitutionDTO>> findAll() {
-        List<InstitutionDTO> institutions = service.findAll();
+    public ResponseEntity<List<InstitutionResponseDTO>> findAll() {
+        List<InstitutionResponseDTO> institutions = service.findAll();
         return ResponseEntity.ok().body(institutions);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InstitutionDTO> findById(@PathVariable Long id) {
-        InstitutionDTO institution = service.findById(id);
+    public ResponseEntity<InstitutionResponseDTO> findById(@PathVariable Long id) {
+        InstitutionResponseDTO institution = service.findById(id);
         return ResponseEntity.ok().body(institution);
     }
 
     @PostMapping
-    public ResponseEntity<InstitutionDTO> insert(@RequestBody @Valid InsertInstitutionDTO dto) {
-        InstitutionDTO institution = service.insert(dto);
+    public ResponseEntity<InstitutionResponseDTO> insert(@RequestBody @Valid InsertInstitutionDTO dto) {
+        InstitutionResponseDTO institution = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(institution.id()).toUri();
         return ResponseEntity.created(uri).body(institution);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InstitutionDTO> updateById(@PathVariable Long id, @RequestBody @Valid UpdateInstitutionDTO dto) {
-        InstitutionDTO institution = service.update(id, dto);
+    public ResponseEntity<InstitutionResponseDTO> updateById(@PathVariable Long id, @RequestBody @Valid UpdateInstitutionDTO dto) {
+        InstitutionResponseDTO institution = service.update(id, dto);
         return ResponseEntity.ok().body(institution);
     }
 

@@ -11,9 +11,9 @@ public record NecessityDTO(Long id,
                            Integer reachedQuantity,
                            UrgencyLevel urgencyLevel,
                            NecessityStatus necessityStatus,
-                           InstitutionDTO institutionDTO) {
+                           InstitutionResponseDTO institutionDTO) {
 
     public NecessityDTO(Necessity necessity){
-        this(necessity.getId(), necessity.getTitle(), necessity.getDescription(), necessity.getRequiredQuantity(), necessity.getReachedQuantity(), necessity.getUrgencyLevel(), necessity.getNecessityStatus(), new InstitutionDTO(necessity.getInstitution()));
+        this(necessity.getId(), necessity.getTitle(), necessity.getDescription(), necessity.getRequiredQuantity(), necessity.getReachedQuantity(), necessity.getUrgencyLevel(), necessity.getNecessityStatus(), new InstitutionResponseDTO(necessity.getInstitution()));
     }
 }

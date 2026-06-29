@@ -38,7 +38,7 @@ public class Institution implements Serializable {
 
     @ToString.Exclude //Evitando loop infinito
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
-    private List<Necessity> necessities = new ArrayList<>();
+    private List<Necessity> necessities;
 
     @OneToOne
     @JoinColumn(name = "user_id")
