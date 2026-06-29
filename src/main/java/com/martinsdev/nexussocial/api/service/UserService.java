@@ -30,10 +30,7 @@ public class UserService {
     @Transactional
     public UserResponseDTO register(RegisterRequestUserDTO dto) {
         if (repository.existsByEmail(dto.email())) {
-            throw new EmailAlreadyExistsException();
-        }
-        if (!donor.getId().equals(client.getId())) {
-            throw new UnauthorizedException();
+            throw new EmailAlreadyExistsException(dto.email());
         }
 
         User user = User.builder()

@@ -2,8 +2,6 @@ package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.InsertAddressDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
-import com.martinsdev.nexussocial.api.model.Address;
-import com.martinsdev.nexussocial.api.repository.AddressRepository;
 import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,11 +1,13 @@
 package com.martinsdev.nexussocial.api.model;
 
-import com.martinsdev.nexussocial.api.dto.InsertInstitutionDTO;
-import com.martinsdev.nexussocial.api.dto.UpdateInstitutionDTO;
+import com.martinsdev.nexussocial.api.model.embedded.Address;
+import com.martinsdev.nexussocial.api.model.enums.AreaOfActivity;
+import com.martinsdev.nexussocial.api.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Table(name = "tb_institution")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -23,30 +26,21 @@ public class Institution implements Serializable {
     private Long id;
     private String name;
     private String cnpj;
+
+    @Enumerated(EnumType.STRING)
+    private AreaOfActivity areaOfActivity;
     private String phone;
     private String email;
+    private LocalDateTime createdAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
+    @Embedded
     private Address address;
 
     @ToString.Exclude //Evitando loop infinito
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL)
     private List<Necessity> necessities = new ArrayList<>();
 
-    public Institution(InsertInstitutionDTO dto) {
-        this.name = dto.name();
-        this.cnpj = dto.cnpj();
-        this.phone = dto.phone();
-        this.email = dto.email();
-    }
-
-    public void updateData(UpdateInstitutionDTO dto){
-        if(dto.name() != null){
-            this.name = dto.name();
-        }
-        if(dto.phone() != null){
-            this.phone = dto.phone();
-        }
-    }
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

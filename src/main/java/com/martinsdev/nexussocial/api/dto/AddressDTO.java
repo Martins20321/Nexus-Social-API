@@ -1,7 +1,5 @@
 package com.martinsdev.nexussocial.api.dto;
 
-import com.martinsdev.nexussocial.api.model.Address;
-
 public record AddressDTO(Long id,
                          String zipCode,
                          String street,

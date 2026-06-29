@@ -2,12 +2,10 @@ package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.InsertNecessityDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateNecessityDTO;
-import com.martinsdev.nexussocial.api.model.Address;
 import com.martinsdev.nexussocial.api.model.Institution;
 import com.martinsdev.nexussocial.api.model.Necessity;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;
-import com.martinsdev.nexussocial.api.repository.AddressRepository;
 import com.martinsdev.nexussocial.api.repository.InstitutionRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
 import org.junit.jupiter.api.Assertions;

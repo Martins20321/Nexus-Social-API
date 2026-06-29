@@ -6,8 +6,6 @@ import com.martinsdev.nexussocial.api.dto.UpdateAddressDTO;
 import com.martinsdev.nexussocial.api.dto.ViaCepResponseDTO;
 import com.martinsdev.nexussocial.api.infra.client.ViaCepClient;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
-import com.martinsdev.nexussocial.api.model.Address;
-import com.martinsdev.nexussocial.api.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
