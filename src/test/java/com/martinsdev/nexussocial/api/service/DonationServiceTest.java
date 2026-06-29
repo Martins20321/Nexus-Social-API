@@ -7,7 +7,6 @@ import com.martinsdev.nexussocial.api.model.*;
 import com.martinsdev.nexussocial.api.model.enums.NecessityStatus;
 import com.martinsdev.nexussocial.api.model.enums.UrgencyLevel;
 import com.martinsdev.nexussocial.api.repository.DonationRepository;
-import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -6,7 +6,6 @@ import com.martinsdev.nexussocial.api.dto.UpdateDonationDTO;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.model.Donation;
 import com.martinsdev.nexussocial.api.repository.DonationRepository;
-import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import com.martinsdev.nexussocial.api.repository.NecessityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.martinsdev.nexussocial.api.model.user;
 
+import com.martinsdev.nexussocial.api.dto.UpdateRequestUserDTO;
 import com.martinsdev.nexussocial.api.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,7 @@ public class User implements UserDetails{
     @Column(unique = true)
     private String email;
     private String password;
+    private String phone;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

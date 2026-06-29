@@ -4,8 +4,6 @@ import com.martinsdev.nexussocial.api.dto.InsertDonorDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonorDTO;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
 import com.martinsdev.nexussocial.api.infra.exception.ValidationException;
-import com.martinsdev.nexussocial.api.model.Donor;
-import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,7 @@ import static org.mockito.Mockito.when;
 class DonorServiceTest {
 
     @InjectMocks
-    private DonorService service;
+    private UserService service;
 
     @Mock
     private DonorRepository repository;

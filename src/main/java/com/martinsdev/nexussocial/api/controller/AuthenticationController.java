@@ -1,6 +1,8 @@
 package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.DataAuthenticationDTO;
+import com.martinsdev.nexussocial.api.dto.RegisterRequestUserDTO;
+import com.martinsdev.nexussocial.api.dto.UserResponseDTO;
 import com.martinsdev.nexussocial.api.infra.exception.InvalidRefreshTokenException;
 import com.martinsdev.nexussocial.api.infra.security.TokenDataJWT;
 import com.martinsdev.nexussocial.api.infra.security.TokenService;
@@ -8,6 +10,7 @@ import com.martinsdev.nexussocial.api.infra.security.DataRefreshTokenDTO;
 import com.martinsdev.nexussocial.api.model.refreshtoken.RefreshToken;
 import com.martinsdev.nexussocial.api.model.refreshtoken.RefreshTokenRepository;
 import com.martinsdev.nexussocial.api.model.user.User;
+import com.martinsdev.nexussocial.api.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 
 @RestController
@@ -28,6 +33,7 @@ public class AuthenticationController {
     private final AuthenticationManager manager;
     private final TokenService tokenService;
     private final RefreshTokenRepository tokenRepository;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<TokenDataJWT> login(@RequestBody @Valid DataAuthenticationDTO dataDTO) {
@@ -37,6 +43,14 @@ public class AuthenticationController {
         var refreshToken = tokenService.generateRefreshToken((User) authentication.getPrincipal());
 
         return ResponseEntity.ok().body(new TokenDataJWT(tokenJWT, refreshToken));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserResponseDTO> register(@RequestBody @Valid RegisterRequestUserDTO dto){
+        UserResponseDTO donor = userService.register(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(donor.id()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PostMapping("/refresh")

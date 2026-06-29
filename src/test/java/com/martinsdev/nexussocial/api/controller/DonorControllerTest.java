@@ -2,8 +2,6 @@ package com.martinsdev.nexussocial.api.controller;
 
 import com.martinsdev.nexussocial.api.dto.InsertDonorDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateDonorDTO;
-import com.martinsdev.nexussocial.api.model.Donor;
-import com.martinsdev.nexussocial.api.repository.DonorRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
