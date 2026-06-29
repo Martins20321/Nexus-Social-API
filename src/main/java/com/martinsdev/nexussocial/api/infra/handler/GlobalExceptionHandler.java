@@ -71,4 +71,12 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(errorResponse);
     }
+
+    @ExceptionHandler(PhoneAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handlePhoneAlreadyExistsException(PhoneAlreadyExistsException ex, HttpServletRequest request) {
+        String error = "Phone Already Exists";
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse errorResponse = new ErrorResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(errorResponse);
+    }
 }
