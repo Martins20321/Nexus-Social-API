@@ -3,7 +3,9 @@ package com.martinsdev.nexussocial.api.service;
 import com.martinsdev.nexussocial.api.dto.RegisterRequestUserDTO;
 import com.martinsdev.nexussocial.api.dto.UpdateRequestUserDTO;
 import com.martinsdev.nexussocial.api.dto.UserResponseDTO;
+import com.martinsdev.nexussocial.api.infra.exception.EmailAlreadyExistsException;
 import com.martinsdev.nexussocial.api.infra.exception.ResourceNotFoundException;
+import com.martinsdev.nexussocial.api.infra.exception.UnauthorizedException;
 import com.martinsdev.nexussocial.api.model.enums.UserRole;
 import com.martinsdev.nexussocial.api.model.user.User;
 import com.martinsdev.nexussocial.api.model.user.UserRepository;
@@ -56,7 +58,7 @@ public class UserService {
         }
         //Verificando se o email é o mesmo e se já existe no banco
         if (!donor.getEmail().equals(dto.email()) && repository.existsByEmail(dto.email())) {
-            throw new EmailAlreadyExistsException();
+            throw new EmailAlreadyExistsException(dto.email());
         }
 
         if (dto.name() != null) donor.setName(dto.name());
